@@ -1,5 +1,19 @@
 # Changelog
 
+## 1.1.0 - 2026-11-17
+
+### Added
+
+- Optional Mod Menu 17.0.1 integration.
+- In-game keybind editor with rebind and reset.
+- Human Mode presentation for smooth aiming and click delay.
+- Wordmark logo for the README and release.
+
+### Changed
+
+- Config screens return to Mod Menu when opened from the mod list.
+- Default keybinds remain F10 and F11.
+
 ## 1.0.0 - 2026-11-17
 
 ### Added

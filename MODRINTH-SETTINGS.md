@@ -13,4 +13,5 @@
 | Source | https://github.com/ingmarltd11-cyber/champ-auto-build |
 | Issues | https://github.com/ingmarltd11-cyber/champ-auto-build/issues |
 | Icon | `icon.png` |
-| Gallery | `screenshots/gui.png` |
+| Wordmark | `logo.png` |
+| Gallery | `screenshots/gui.png`, `screenshots/keybinds.png` |

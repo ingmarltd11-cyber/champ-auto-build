@@ -1,5 +1,7 @@
 # Champ Auto Build
 
+![Champ Auto Build](logo.png)
+
 A client-side Litematica and Sponge schematic builder for **Minecraft 1.21.11** on **Fabric**, with a native Minecraft GUI.
 
 ![Champ Auto Build GUI](screenshots/gui.png)
@@ -17,7 +19,9 @@ Champ Auto Build loads a schematic, works out which blocks are missing, and plac
 - Optional obstruction breaking.
 - Optional command fallback in singleplayer with gamemaster permissions.
 - Multiple rounds to retry blocks that could not be placed the first time.
-- Human-like smooth aiming and a configurable click delay.
+- Human Mode: smooth aiming plus a configurable click delay.
+- Optional Mod Menu 17.0.1 integration; open the settings from the mod list.
+- Built-in keybind editor with rebind and reset.
 - Native Minecraft buttons and sliders, designed for GUI scale 2.
 - Settings persist in `config/champ-auto-build.json`.
 
@@ -35,8 +39,9 @@ Champ Auto Build loads a schematic, works out which blocks are missing, and plac
 
 1. Install Fabric Loader for Minecraft 1.21.11.
 2. Put Fabric API in your `mods` folder.
-3. Put `champ-auto-build-1.0.0.jar` in the same `mods` folder.
-4. Start the game with the Fabric profile.
+3. Put `champ-auto-build-1.1.0.jar` in the same `mods` folder.
+4. Optional: install Mod Menu 17.0.1 or newer to open the settings from the mod list.
+5. Start the game with the Fabric profile.
 
 The sources jar is for reading and building, not for the `mods` folder.
 
@@ -48,7 +53,11 @@ The sources jar is for reading and building, not for the `mods` folder.
 | `F11` | Start or stop the builder |
 | `Escape` | Close the panel without stopping the builder |
 
-Keybinds can be changed in Minecraft's normal Controls screen under the Champ Auto Build category.
+Change the keys in the panel under `Keybinds...`, or in Minecraft's normal Controls screen under the Champ Auto Build category. `Reset keys` restores the F10 and F11 defaults.
+
+![Champ Auto Build keybinds](screenshots/keybinds.png)
+
+Human Mode keeps the camera movement smooth and waits before each click. Raise `Click delay` for slower, more deliberate placement or set it to 0 for the fastest response.
 
 ## Usage
 
@@ -87,7 +96,7 @@ Path resolution accepts:
 | Break Obstructions | Off | Break blocks that are in the way of the target. |
 | Temp Blocks | On | Use temporary scaffold blocks to reach targets. |
 | Clean Up Temp | On | Remove temporary scaffold blocks after the build. |
-| Smooth Aim | On | Turn toward targets gradually instead of snapping. |
+| Human Mode | On | Turn toward targets gradually and use the click delay. |
 | Command Fallback | Off | Use commands for unreachable blocks in singleplayer with permission. |
 | Reach | 4.5 | Placement and breaking reach, from 2.0 to 6.0. |
 | Click delay | 1 | Extra delay between clicks, from 0 to 10 ticks. |
@@ -137,8 +146,8 @@ gradlew.bat build
 The mod jar and sources jar are written to `build/libs/`:
 
 ```
-champ-auto-build-1.0.0.jar
-champ-auto-build-1.0.0-sources.jar
+champ-auto-build-1.1.0.jar
+champ-auto-build-1.1.0-sources.jar
 ```
 
 To run a development client:

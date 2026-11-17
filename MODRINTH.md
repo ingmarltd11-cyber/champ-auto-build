@@ -1,5 +1,7 @@
 # Champ Auto Build
 
+![Champ Auto Build logo](https://raw.githubusercontent.com/ingmarltd11-cyber/champ-auto-build/main/logo.png)
+
 A **client-side Litematica and Sponge schematic builder** for **Minecraft 1.21.11** on **Fabric**, with a native Minecraft GUI.
 
 ![Champ Auto Build GUI](https://raw.githubusercontent.com/ingmarltd11-cyber/champ-auto-build/main/screenshots/gui.png)
@@ -20,15 +22,18 @@ There is no ImGui: the interface uses normal Minecraft buttons and sliders.
 - Optional obstruction breaking.
 - Optional command fallback in singleplayer with gamemaster permissions.
 - Multiple retry rounds for blocks that could not be placed.
-- Smooth aiming and a configurable click delay.
+- Human Mode with smooth aiming and a configurable click delay.
+- Optional Mod Menu 17.0.1 integration with a config button in the mod list.
+- Built-in keybind editor with rebind and reset.
 - Settings saved in `config/champ-auto-build.json`.
 - Source code and a sources jar are included.
 
 ## How to use
 
 1. Install Fabric Loader for Minecraft 1.21.11 and Fabric API.
-2. Put `champ-auto-build-1.0.0.jar` in your `mods` folder.
-3. Put your schematic in `.minecraft/schematics/` or use an absolute path.
+2. Put `champ-auto-build-1.1.0.jar` in your `mods` folder.
+3. Optional: add Mod Menu 17.0.1 or newer to open the settings from the mod list.
+4. Put your schematic in `.minecraft/schematics/` or use an absolute path.
 4. Join a world, stand where the centre of the build should start and face a clear area.
 5. Press `F10`.
 6. Type the file name or path. A bare name is looked up in the game directory and then in `schematics/`. If you leave off the extension, `.litematic` is added.
@@ -36,7 +41,9 @@ There is no ImGui: the interface uses normal Minecraft buttons and sliders.
 8. Press `Load & Start`.
 9. Press `Stop` or `F11` to stop. Closing the panel with `Escape` leaves the builder running.
 
-The status line shows the engine state, placed count, total count and blocks left. If materials are missing, the builder waits and retries.
+Change the keys under `Keybinds...` in the panel, or in Minecraft's Controls screen. `Reset keys` restores F10 and F11.
+
+The status line shows the engine state, placed count, total count and blocks left. If materials are missing, the builder waits and retries. Human Mode keeps the camera movement smooth and waits before each click; raise `Click delay` for slower placement or set it to 0 for the fastest response.
 
 ## Supported files
 
@@ -56,7 +63,7 @@ The loader accepts up to 2,000,000 blocks. Larger files are truncated with a war
 | Break Obstructions | Off | Break blocks in the way of a target. |
 | Temp Blocks | On | Use temporary scaffold blocks to reach targets. |
 | Clean Up Temp | On | Remove temporary scaffold blocks after the build. |
-| Smooth Aim | On | Turn toward targets gradually. |
+| Human Mode | On | Turn toward targets gradually and use the click delay. |
 | Command Fallback | Off | Use commands for unreachable blocks in singleplayer with permission. |
 | Reach | 4.5 | Placement and breaking reach, from 2.0 to 6.0. |
 | Click delay | 1 | Extra delay between clicks, from 0 to 10 ticks. |
@@ -72,6 +79,7 @@ Temporary blocks use `minecraft:dirt` by default. The list can be changed in the
 | Minecraft | 1.21.11 |
 | Loader | Fabric Loader 0.19.0+ |
 | Dependency | Fabric API |
+| Optional | Mod Menu 17.0.1+ |
 | Java | 21 |
 | Environment | Client |
 | License | MIT |

@@ -25,6 +25,14 @@ public final class AutoBuildMod implements ClientModInitializer {
         ClientTickEvents.END_CLIENT_TICK.register(this::tick);
     }
 
+    public static KeyBinding openKey() {
+        return openKey;
+    }
+
+    public static KeyBinding toggleKey() {
+        return toggleKey;
+    }
+
     private void tick(MinecraftClient client) {
         while (openKey.wasPressed()) client.setScreen(new AutoBuildScreen());
         while (toggleKey.wasPressed()) AutoBuildController.toggle(client);

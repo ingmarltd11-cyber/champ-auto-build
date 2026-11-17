@@ -17,6 +17,7 @@ public final class AutoBuildScreen extends Screen {
     private static final int PANEL = 0xFF1B1710;
     private static final int BORDER = 0xFF463A26;
 
+    private final Screen parent;
     private TextFieldWidget schematicField;
     private ButtonWidget activeButton;
     private ButtonWidget replaceButton;
@@ -27,7 +28,12 @@ public final class AutoBuildScreen extends Screen {
     private ButtonWidget commandButton;
 
     public AutoBuildScreen() {
+        this(null);
+    }
+
+    public AutoBuildScreen(Screen parent) {
         super(Text.literal("Champ Auto Build"));
+        this.parent = parent;
     }
 
     @Override
@@ -74,7 +80,7 @@ public final class AutoBuildScreen extends Screen {
             AutoBuildConfig.cleanupTempBlocks = !AutoBuildConfig.cleanupTempBlocks;
             refresh();
         }).dimensions(x + 20 + toggleW + gap, row2, toggleW, 16).build());
-        smoothButton = addDrawableChild(ButtonWidget.builder(Text.literal("Smooth Aim"), button -> {
+        smoothButton = addDrawableChild(ButtonWidget.builder(Text.literal("Human Mode"), button -> {
             AutoBuildConfig.smoothAim = !AutoBuildConfig.smoothAim;
             refresh();
         }).dimensions(x + 20, row3, toggleW, 16).build());
@@ -91,8 +97,11 @@ public final class AutoBuildScreen extends Screen {
             "Max rounds", AutoBuildConfig.maxRounds, 1, 20, value -> AutoBuildConfig.maxRounds = value));
         addDrawableChild(new IntSlider(x + 20 + toggleW + gap, y + 166, toggleW, 16,
             "Stuck ticks", AutoBuildConfig.stuckTicks, 40, 1200, value -> AutoBuildConfig.stuckTicks = value));
+        addDrawableChild(ButtonWidget.builder(Text.literal("Keybinds..."), button ->
+            client.setScreen(new AutoBuildKeybindsScreen(this)))
+            .dimensions(x + 20, y + 190, toggleW, 18).build());
         addDrawableChild(ButtonWidget.builder(Text.literal("Close"), button -> close())
-            .dimensions(x + 20, y + 190, panelW - 40, 18).build());
+            .dimensions(x + 20 + toggleW + gap, y + 190, toggleW, 18).build());
         refresh();
     }
 
@@ -102,7 +111,7 @@ public final class AutoBuildScreen extends Screen {
         breakButton.setMessage(Text.literal((AutoBuildConfig.breakObstructions ? "[x] " : "[ ] ") + "Break Obstructions"));
         tempButton.setMessage(Text.literal((AutoBuildConfig.tempBlocks ? "[x] " : "[ ] ") + "Temp Blocks"));
         cleanupButton.setMessage(Text.literal((AutoBuildConfig.cleanupTempBlocks ? "[x] " : "[ ] ") + "Clean Up Temp"));
-        smoothButton.setMessage(Text.literal((AutoBuildConfig.smoothAim ? "[x] " : "[ ] ") + "Smooth Aim"));
+        smoothButton.setMessage(Text.literal((AutoBuildConfig.smoothAim ? "[x] " : "[ ] ") + "Human Mode"));
         commandButton.setMessage(Text.literal((AutoBuildConfig.commandFallback ? "[x] " : "[ ] ") + "Command Fallback"));
     }
 
@@ -117,11 +126,16 @@ public final class AutoBuildScreen extends Screen {
         context.fill(x, y, x + panelW, y + 2, ACCENT);
         context.fill(x, y + panelH - 1, x + panelW, y + panelH, BORDER);
         context.drawText(this.textRenderer, this.title, x + 20, y + 8, TEXT, false);
-        context.drawText(this.textRenderer, Text.literal("Litematica builder - F10 opens, F11 toggles"),
+        context.drawText(this.textRenderer, Text.literal("Litematica builder - "
+            + keyName(AutoBuildMod.openKey()) + " opens, " + keyName(AutoBuildMod.toggleKey()) + " toggles"),
             x + 20, y + 19, MUTED, false);
         context.drawText(this.textRenderer, Text.literal(shorten(AutoBuildController.status(), 58)),
             x + 20, y + 76, MUTED, false);
         super.render(context, mouseX, mouseY, deltaTicks);
+    }
+
+    private static String keyName(net.minecraft.client.option.KeyBinding binding) {
+        return binding == null ? "unbound" : binding.getBoundKeyLocalizedText().getString();
     }
 
     private static String shorten(String value, int length) {
@@ -147,7 +161,7 @@ public final class AutoBuildScreen extends Screen {
     public void close() {
         AutoBuildConfig.schematic = schematicField.getText();
         AutoBuildConfig.save();
-        super.close();
+        if (client != null) client.setScreen(parent);
     }
 
     @Override
