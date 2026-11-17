@@ -1,0 +1,25 @@
+{
+  "schemaVersion": 1,
+  "id": "champ-auto-build",
+  "version": "${version}",
+  "name": "Champ Auto Build",
+  "description": "A standalone Litematica builder with a native Minecraft interface.",
+  "authors": ["Champ"],
+  "license": "MIT",
+  "icon": "assets/champ-auto-build/icon.png",
+  "environment": "client",
+  "contact": {
+    "homepage": "https://github.com/ingmarltd11-cyber/champ-auto-build",
+    "sources": "https://github.com/ingmarltd11-cyber/champ-auto-build",
+    "issues": "https://github.com/ingmarltd11-cyber/champ-auto-build/issues"
+  },
+  "entrypoints": {
+    "client": ["com.champ.autobuild.AutoBuildMod"]
+  },
+  "depends": {
+    "fabricloader": ">=0.19.0",
+    "minecraft": "~1.21.11",
+    "java": ">=21",
+    "fabric-api": "*"
+  }
+}
